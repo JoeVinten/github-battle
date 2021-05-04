@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWeback = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./app/index.js",
@@ -15,7 +16,10 @@ module.exports = {
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: "app/index.html" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "app/index.html" }),
+    new CopyPlugin({ patterns: [{ from: "_redirects" }] }),
+  ],
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
   devServer: {
     historyApiFallback: true,
